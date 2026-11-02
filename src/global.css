@@ -1,0 +1,581 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@source "node_modules/streamdown/dist/**/*.{js,ts,jsx,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-gradient: gradient 8s linear infinite;
+  --animate-shine: shine var(--duration) infinite linear;
+  --animate-ripple: ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite;
+  --animate-meteor: meteor 5s linear infinite;
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+  @keyframes gradient {
+  to {
+    background-position: var(--bg-size, 300%) 0;
+    }
+  }
+  @keyframes shine {
+  0% {
+    background-position: 0% 0%;
+    }
+  50% {
+    background-position: 100% 100%;
+    }
+  to {
+    background-position: 0% 0%;
+    }
+  }
+  @keyframes ripple {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    }
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
+  @keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+    }
+  70% {
+    opacity: 1;
+    }
+  100% {
+    transform: rotate(var(--angle)) translateX(-500px);
+    opacity: 0;
+    }
+  }
+}
+
+:root {
+  /* ======================================================================
+     Charte C.A.P.R.I (theme clair) : modifiez ces couleurs pour changer
+     l'apparence de tout le tableau de bord et des menus.
+     ====================================================================== */
+  --radius: 0.75rem;
+  --cursor-type: default;
+  --background: oklch(0.985 0.005 290);
+  --foreground: oklch(0.2 0.02 290);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 290);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 290);
+  --primary: oklch(0.48 0.16 292);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.955 0.012 290);
+  --secondary-foreground: oklch(0.25 0.03 290);
+  --muted: oklch(0.955 0.012 290);
+  --muted-foreground: oklch(0.5 0.02 290);
+  --accent: oklch(0.94 0.02 290);
+  --accent-foreground: oklch(0.25 0.03 290);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.91 0.012 290);
+  --input: oklch(0.91 0.012 290);
+  --ring: oklch(0.6 0.12 292);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.975 0.008 290);
+  --sidebar-foreground: oklch(0.25 0.03 290);
+  --sidebar-primary: oklch(0.48 0.16 292);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.93 0.025 290);
+  --sidebar-accent-foreground: oklch(0.2 0.03 290);
+  --sidebar-border: oklch(0.91 0.012 290);
+  --sidebar-ring: oklch(0.6 0.12 292);
+  /* Fond degrade du tableau de bord */
+  --dash-bg-1: oklch(0.99 0.004 290);
+  --dash-bg-2: oklch(0.975 0.01 290);
+  --dash-bg-3: oklch(0.94 0.035 295);
+}
+
+.dark {
+  /* Charte C.A.P.R.I (theme sombre) : meme famille que l'overlay. */
+  --background: oklch(0.17 0.015 290);
+  --foreground: oklch(0.97 0.005 290);
+  --card: oklch(0.22 0.02 290);
+  --card-foreground: oklch(0.97 0.005 290);
+  --popover: oklch(0.21 0.02 290);
+  --popover-foreground: oklch(0.97 0.005 290);
+  --primary: oklch(0.9 0.09 135);
+  --primary-foreground: oklch(0.2 0.02 135);
+  --secondary: oklch(0.27 0.025 290);
+  --secondary-foreground: oklch(0.97 0.005 290);
+  --muted: oklch(0.26 0.022 290);
+  --muted-foreground: oklch(0.72 0.02 290);
+  --accent: oklch(0.3 0.035 290);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.62 0.14 295);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.19 0.018 290);
+  --sidebar-foreground: oklch(0.95 0.005 290);
+  --sidebar-primary: oklch(0.62 0.14 295);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.29 0.04 292);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.62 0.14 295);
+  --dash-bg-1: oklch(0.17 0.015 290);
+  --dash-bg-2: oklch(0.19 0.025 290);
+  --dash-bg-3: oklch(0.27 0.07 300);
+}
+
+/* Pages de reglages : chaque section dans une carte, titres de section plus petits */
+.souffleur-sections > :not(.ds-bare) {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 1.25rem;
+}
+.souffleur-sections [data-main-title] {
+  font-size: 0.95rem;
+  line-height: 1.4rem;
+}
+
+/* Fond du tableau de bord : degrade violet comme l'overlay */
+.souffleur-dashboard {
+  background:
+    radial-gradient(1200px 600px at 0% 100%, color-mix(in oklab, var(--dash-bg-3) 70%, transparent), transparent 70%),
+    radial-gradient(900px 500px at 100% 0%, color-mix(in oklab, var(--dash-bg-3) 45%, transparent), transparent 70%),
+    linear-gradient(160deg, var(--dash-bg-1) 0%, var(--dash-bg-2) 60%, var(--dash-bg-1) 100%);
+}
+
+/* Panneau principal (a droite de la barre laterale) */
+.souffleur-panneau {
+  background:
+    radial-gradient(900px 420px at 50% -10%, color-mix(in oklab, var(--dash-bg-3) 55%, transparent), transparent 70%),
+    color-mix(in oklab, var(--background) 80%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    0 30px 80px -40px rgb(0 0 0 / 0.6);
+}
+
+/* Cartes legerement transparentes au-dessus du fond anime */
+.souffleur-panneau [data-slot="card"],
+.souffleur-carte {
+  background-color: color-mix(in oklab, var(--card) 78%, transparent);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Apply global transparency */
+[data-slot="card"] {
+  background-color: rgb(from var(--card) r g b / var(--opacity, 1)) !important;
+  backdrop-filter: var(--backdrop-blur, none);
+}
+
+[data-slot="popover-content"] {
+  background-color: rgb(
+    from var(--popover) r g b / var(--opacity, 1)
+  ) !important;
+  backdrop-filter: var(--backdrop-blur, none);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(from var(--muted-foreground) r g b / 0.2) transparent !important;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(from var(--muted-foreground) r g b / 0.2) !important;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(from var(--muted-foreground) r g b / 0.3) !important;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+* {
+  cursor: var(--cursor-type) !important;
+}
+
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Streamdown code block styling */
+[data-streamdown="code-block"] code {
+  color: inherit !important;
+}
+
+.dark [data-streamdown="code-block"] code span {
+  color: var(--shiki-dark) !important;
+}
+
+/* Fallback for code text color in dark mode */
+.dark [data-streamdown="code-block"] code {
+  color: oklch(0.985 0 0) !important;
+}
+
+/* Fix viewport overflow for markdown content */
+[data-streamdown="code-block"],
+[data-streamdown="table"] {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+[data-streamdown="code-block"] pre,
+[data-streamdown="code-block"] code {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+/* ==========================================================================
+   Charte graphique de l'overlay C.A.P.R.I.
+   Tout le style de l'overlay part de ces variables : modifiez-les ici pour
+   changer les couleurs, les surfaces des boutons ou l'accent.
+   La transparence reglee dans les parametres (--opacity) est respectee.
+   ========================================================================== */
+.souffleur-overlay {
+  --ov-bg-1: 24 24 28;           /* degrade : haut */
+  --ov-bg-2: 36 34 46;           /* degrade : milieu */
+  --ov-bg-3: 78 58 112;          /* degrade : bas (violet) */
+  --ov-border: 255 255 255 / 0.10;
+  --ov-surface: 255 255 255 / 0.07;
+  --ov-surface-hover: 255 255 255 / 0.13;
+  --ov-surface-active: 255 255 255 / 0.20;
+  --ov-text: 255 255 255 / 0.92;
+  --ov-muted: 255 255 255 / 0.55;
+  --ov-accent: 196 234 170;      /* bouton envoyer */
+  --ov-accent-text: 20 24 18;
+  --ov-ok: 134 239 172;          /* pastille "Pret" */
+  --ov-warn: 251 191 36;         /* pastille "A configurer" */
+  --ov-live: 248 113 113;        /* pastille "Ecoute" */
+
+  color: rgb(var(--ov-text));
+  background: linear-gradient(
+    180deg,
+    rgb(var(--ov-bg-1) / var(--opacity, 0.96)) 0%,
+    rgb(var(--ov-bg-2) / var(--opacity, 0.96)) 55%,
+    rgb(var(--ov-bg-3) / var(--opacity, 0.96)) 100%
+  );
+  backdrop-filter: blur(18px);
+  border: 1px solid rgb(var(--ov-border));
+  border-radius: 18px;
+}
+
+.souffleur-overlay .ov-muted { color: rgb(var(--ov-muted)); }
+.souffleur-overlay .ov-divider { border-color: rgb(var(--ov-border)); }
+
+.souffleur-overlay .ov-pill,
+.souffleur-overlay .ov-icon,
+.souffleur-overlay .ov-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  background: rgb(var(--ov-surface));
+  border: 1px solid rgb(var(--ov-border));
+  color: rgb(var(--ov-text));
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  cursor: pointer;
+}
+.souffleur-overlay .ov-pill { height: 2rem; padding: 0 0.8rem; font-size: 0.8rem; }
+.souffleur-overlay .ov-icon { height: 2rem; width: 2rem; padding: 0; }
+.souffleur-overlay .ov-chip { height: 1.75rem; padding: 0 0.7rem; font-size: 0.75rem; }
+.souffleur-overlay .ov-pill:hover,
+.souffleur-overlay .ov-icon:hover,
+.souffleur-overlay .ov-chip:hover { background: rgb(var(--ov-surface-hover)); }
+.souffleur-overlay [data-active="true"].ov-pill,
+.souffleur-overlay [data-active="true"].ov-icon,
+.souffleur-overlay [data-active="true"].ov-chip { background: rgb(var(--ov-surface-active)); }
+.souffleur-overlay .ov-pill:disabled,
+.souffleur-overlay .ov-icon:disabled,
+.souffleur-overlay .ov-chip:disabled { opacity: 0.4; pointer-events: none; }
+/* "Utiliser l'image" actif : bien visible (capture de l'ecran jointe a chaque question). */
+.souffleur-overlay .ov-chip.ov-chip-image-on,
+.souffleur-overlay .ov-chip.ov-chip-image-on:hover {
+  background: rgb(var(--ov-accent));
+  border-color: rgb(var(--ov-accent));
+  color: rgb(var(--ov-accent-text));
+  font-weight: 600;
+  box-shadow: 0 0 12px -2px rgb(var(--ov-accent) / 0.7);
+}
+
+.souffleur-overlay .ov-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border-radius: 9999px;
+  background: rgb(var(--ov-surface));
+  border: 1px solid rgb(var(--ov-border));
+}
+.souffleur-overlay .ov-group .ov-pill,
+.souffleur-overlay .ov-group .ov-icon { background: transparent; border-color: transparent; }
+.souffleur-overlay .ov-group [data-active="true"] { background: rgb(var(--ov-surface-active)); }
+
+.souffleur-overlay .ov-input {
+  border-radius: 14px;
+  background: rgb(var(--ov-surface));
+  border: 1px solid rgb(var(--ov-border));
+  color: rgb(var(--ov-text));
+}
+.souffleur-overlay .ov-input:focus-within { border-color: rgb(255 255 255 / 0.25); }
+
+.souffleur-overlay .ov-send {
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--ov-accent));
+  color: rgb(var(--ov-accent-text));
+  transition: opacity 0.15s ease;
+}
+.souffleur-overlay .ov-send:disabled { opacity: 0.4; }
+
+.souffleur-overlay .ov-kbd {
+  font-size: 0.65rem;
+  padding: 0 0.3rem;
+  border-radius: 4px;
+  border: 1px solid rgb(var(--ov-border));
+  background: rgb(var(--ov-surface));
+  color: rgb(var(--ov-muted));
+}
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+/* Cartes du tableau de bord : legere elevation au survol */
+.souffleur-panneau [data-slot="card"] {
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.souffleur-panneau [data-slot="card"]:hover {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .souffleur-panneau *,
+  .souffleur-overlay * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reponses de l'IA dans l'overlay : police de lecture (Source Serif), texte aere, phrase a
+   dire mise en avant. Les selecteurs priment sur les classes de Streamdown. */
+.souffleur-overlay .capri-reponse {
+  font-family: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  line-height: 1.68;
+  color: rgb(255 255 255 / 0.94);
+  max-width: 62ch;
+}
+.souffleur-overlay .capri-reponse p { margin: 0; }
+.souffleur-overlay .capri-reponse strong { font-weight: 600; color: #fff; }
+.souffleur-overlay .capri-reponse h1,
+.souffleur-overlay .capri-reponse h2,
+.souffleur-overlay .capri-reponse h3,
+.souffleur-overlay .capri-reponse h4 {
+  font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--ov-accent));
+  margin: 1.2em 0 0.25em;
+}
+.souffleur-overlay .capri-reponse ul,
+.souffleur-overlay .capri-reponse ol {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.4em;
+}
+.souffleur-overlay .capri-reponse ol { counter-reset: capri; }
+.souffleur-overlay .capri-reponse li { position: relative; padding: 0 0 0 1.25em; }
+.souffleur-overlay .capri-reponse li > p { display: inline; }
+.souffleur-overlay .capri-reponse ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.72em;
+  width: 0.36em;
+  height: 0.36em;
+  border-radius: 50%;
+  background: #9C7BFF;
+}
+.souffleur-overlay .capri-reponse ol > li { counter-increment: capri; }
+.souffleur-overlay .capri-reponse ol > li::before {
+  content: counter(capri) ".";
+  position: absolute;
+  left: 0;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #9C7BFF;
+}
+/* Phrase a dire mot pour mot (citation Markdown) : encadre vert, copiable. */
+.souffleur-overlay .capri-reponse blockquote {
+  margin: 0.2em 0;
+  padding: 0.7em 0.9em 0.75em 1em;
+  border: 1px solid rgb(var(--ov-accent) / 0.3);
+  border-radius: 12px;
+  background: rgb(var(--ov-accent) / 0.08);
+  color: rgb(255 255 255 / 0.96);
+  font-style: italic;
+}
+.souffleur-overlay .capri-reponse blockquote::before {
+  content: "À dire";
+  display: block;
+  margin-bottom: 0.25em;
+  font: 600 0.66rem "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgb(var(--ov-accent));
+}
+.souffleur-overlay .capri-reponse code { font-size: 0.86em; }
+/* Curseur pendant que la reponse s'ecrit. */
+.souffleur-overlay .capri-reponse.en-cours > :last-child > :last-child::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  border-radius: 1px;
+  background: rgb(var(--ov-accent));
+  animation: capri-curseur 1s steps(2) infinite;
+}
+@keyframes capri-curseur { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .souffleur-overlay .capri-reponse.en-cours > :last-child > :last-child::after { animation: none; }
+}
+/* Actions sous une reponse. */
+.souffleur-overlay .capri-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.souffleur-overlay .capri-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 1.6rem;
+  padding: 0 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(var(--ov-border));
+  background: rgb(var(--ov-surface));
+  color: rgb(var(--ov-muted));
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.souffleur-overlay .capri-actions button:hover { background: rgb(var(--ov-surface-hover)); color: rgb(var(--ov-text)); }
+.souffleur-overlay .capri-actions button[data-active="true"] {
+  background: rgb(var(--ov-accent));
+  border-color: rgb(var(--ov-accent));
+  color: rgb(var(--ov-accent-text));
+}

@@ -1,0 +1,37 @@
+Souffleur
+=========
+
+Souffleur est une oeuvre derivee de Pluely, version 0.1.9, sous licence GNU
+General Public License v3.0 (GPL-3.0).
+
+Projet d'origine : Pluely
+Auteur d'origine : Srikanth Nani
+Depot d'origine  : https://github.com/iamsrikanthnani/pluely
+Version reprise  : 0.1.9 (publiee sous GPL-3.0)
+
+Conformement a la GPL-3.0 :
+- le code source de Souffleur reste sous GPL-3.0 (voir le fichier LICENSE) ;
+- cet avis d'attribution et la licence sont conserves ;
+- les modifications apportees par rapport a Pluely 0.1.9 sont decrites ci-dessous.
+
+Principales modifications
+-------------------------
+- Changement de nom et de marque (Pluely -> Souffleur), identifiant d'application,
+  nom de la base de donnees locale et libelles de l'interface (traduits en francais).
+- Suppression de toutes les fonctions reliees aux services heberges du projet d'origine :
+  API d'IA hebergee, verification/achat de licence, telemetrie (PostHog), mise a jour
+  automatique, bibliotheque de prompts distante, generation de prompt via le serveur
+  distant, composants de promotion. Souffleur fonctionne uniquement avec les fournisseurs
+  d'IA locaux (Ollama, LM Studio, llama.cpp) ou des API tierces configurees par
+  l'utilisateur (OpenAI, Claude, Groq, Mistral, etc.) et la transcription locale ou par API.
+- Toutes les fonctions locales sont debloquees (aucune licence payante).
+- Ajout d'un "mode furtif" verrouille par mot de passe (hachage Argon2), desactive a
+  chaque demarrage, a but pedagogique. Il s'appuie sur l'appel systeme expose par Tauri
+  (content_protected) pour exclure les fenetres des captures d'ecran, ainsi que sur le
+  masquage de l'icone de la barre des taches. Cette fonction doit etre retiree avant toute
+  publication ou usage reel.
+
+Attention
+---------
+Les icones presentes dans src-tauri/icons/ proviennent du projet d'origine et doivent
+etre remplacees avant toute diffusion de Souffleur sous son propre nom.

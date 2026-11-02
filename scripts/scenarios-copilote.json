@@ -1,0 +1,63 @@
+[
+  {
+    "nom": "Client bavard (long monologue)",
+    "passages": [
+      {
+        "texte": "Bonjour, merci de prendre le temps.",
+        "carte": "aucune",
+        "faits": []
+      },
+      {
+        "texte": "Alors pour vous situer, on est un transporteur régional, on a cent vingt sites, la plupart reliés en ADSL, quelques-uns en 4G de secours. Et franchement le réseau c'est notre cauchemar : on a des coupures presque chaque semaine, surtout sur les dépôts de l'Isère. Quand ça coupe, les chauffeurs ne reçoivent plus leurs tournées, on les rappelle un par un, et la semaine dernière on a livré trois clients en retard, dont un grand compte qui nous a mis des pénalités. Moi je pilote le projet, mais c'est le directeur financier qui signera. Et idéalement on voudrait que ce soit réglé avant l'été.",
+        "carte": "quelconque",
+        "faits": [
+          { "categorie": "S", "contient": ["120", "cent vingt"] },
+          { "categorie": "P", "contient": ["coupure"] },
+          { "categorie": "I", "contient": ["retard", "pénalit", "penalit"] },
+          { "categorie": "decideur", "contient": ["financier", "daf"] },
+          { "categorie": "delai", "contient": ["été", "ete"] }
+        ]
+      },
+      {
+        "texte": "Oui voilà, comme je vous disais, on a cent vingt sites.",
+        "carte": "aucune",
+        "faits": []
+      }
+    ]
+  },
+  {
+    "nom": "Budget contradictoire",
+    "passages": [
+      {
+        "texte": "Pour le budget on a prévu environ cinquante mille euros cette année.",
+        "carte": "quelconque",
+        "faits": [{ "categorie": "budget", "contient": ["50", "cinquante"] }]
+      },
+      {
+        "texte": "Ah non pardon, en fait on ne pourra rien engager avant le mois de juin, le budget est gelé.",
+        "carte": "clarifier_ou_objection",
+        "faits": [{ "categorie": "budget", "contient": ["juin", "gel"] }]
+      }
+    ]
+  },
+  {
+    "nom": "Objection qui revient",
+    "passages": [
+      {
+        "texte": "Honnêtement votre offre me paraît trop chère par rapport à ce qu'on paie aujourd'hui.",
+        "carte": "objection",
+        "faits": []
+      },
+      {
+        "texte": "D'accord, c'est intéressant. Mais je reviens sur le prix, c'est vraiment trop cher pour nous.",
+        "carte": "objection",
+        "faits": []
+      },
+      {
+        "texte": "Merci, c'est noté.",
+        "carte": "aucune",
+        "faits": []
+      }
+    ]
+  }
+]

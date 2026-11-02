@@ -1,0 +1,69 @@
+name: Build C.A.P.R.I (Windows)
+
+# Compile C.A.P.R.I sur un runner Windows et publie l'installeur sur la release
+# "capri-latest" : un lien fixe pour telecharger la derniere version.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      # Le cache Rust peut reutiliser l'ancienne icone integree a l'exe : on recompile
+      # toujours l'appli elle-meme (les dependances restent en cache).
+      - name: Clean app crate
+        working-directory: src-tauri
+        run: cargo clean --release -p souffleur
+
+      - name: Build Tauri app (frontend + Rust)
+        run: npm run tauri build
+
+      - name: Prepare standalone exe
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path exe-seul | Out-Null
+          $exe = Get-ChildItem src-tauri/target/release -Filter *.exe | Select-Object -First 1
+          if (-not $exe) { throw "Executable introuvable" }
+          Copy-Item $exe.FullName "exe-seul/C.A.P.R.I.exe"
+
+      - name: Publish to download page (release capri-latest)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: capri-latest
+          name: C.A.P.R.I - derniere version
+          prerelease: true
+          body: |
+            Derniere version de C.A.P.R.I pour Windows, construite automatiquement.
+            Commit : ${{ github.sha }}
+
+            - Installeur : fichier se terminant par `-setup.exe`
+            - Sans installation : `C.A.P.R.I.exe`
+          files: |
+            src-tauri/target/release/bundle/nsis/*.exe
+            exe-seul/C.A.P.R.I.exe
+          fail_on_unmatched_files: false
