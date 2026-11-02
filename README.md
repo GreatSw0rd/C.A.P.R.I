@@ -12,6 +12,14 @@
 
 ![L'overlay de C.A.P.R.I au repos, avec son orbe animée](docs/captures/accueil.png)
 
+## Démo
+
+<p align="center">
+  <img src="docs/demo.gif" width="680" alt="Démo : une question à l'IA et sa réponse avec la phrase à dire, puis l'écoute d'un appel avec la suggestion du moment et la fiche vivante du prospect">
+</p>
+
+<p align="center"><sub>Une question à l'IA, puis l'écoute d'un appel : suggestion du moment et fiche vivante. Prospect fictif.</sub></p>
+
 ## Ce que fait C.A.P.R.I
 
 C.A.P.R.I s'affiche dans une petite fenêtre transparente, toujours au premier plan, par-dessus votre visio ou votre logiciel d'appel. Il accompagne le rendez-vous du début à la fin.
