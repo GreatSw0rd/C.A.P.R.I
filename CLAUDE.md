@@ -78,12 +78,3 @@ Deux fenêtres Tauri : `main` (overlay) et `dashboard` (tableau de bord, créé 
 ## Idées de fonctions
 
 Dictée dans n'importe quelle application, mémoire des préférences de l'utilisateur, lecture de PDF glissés dans l'overlay, thème clair, tutoriel de premier lancement, connecteurs (agenda, CRM, e-mail), raccourci pour copier directement la phrase à dire.
-
-## Reprise rapide
-
-```
-Projet C.A.P.R.I, dépôt GreatSw0rd/C.A.P.R.I, branche main.
-Lis CLAUDE.md (contexte) puis README.md (produit).
-Réponds en français, jamais d'emoji. Vérifie avec tsc et npm run build avant de pousser sur main.
-Prochaine étape : [ce que je veux ajouter].
-```
