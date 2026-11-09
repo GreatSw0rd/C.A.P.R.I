@@ -48,14 +48,40 @@ C.A.P.R.I s'affiche dans une petite fenêtre transparente, toujours au premier p
 
 ## Fonctionnalités
 
-- **Copilote de rendez-vous** : préparation, fiche vivante, suggestion du moment, suivi des objections et des engagements, compte-rendu.
-- **Questions à l'IA** à l'écrit, à la dictée, ou en **conversation vocale** (l'IA répond à voix haute).
-- **Captures d'écran** jointes à la question, en plein écran ou par zone, sur plusieurs écrans.
-- **Prompts système** à activer en un clic depuis l'overlay (vente SPIN, négociation…).
-- **Choix du modèle** depuis l'overlay, parmi les LLM que vous avez ajoutés.
-- **Connaissances** : vos documents injectés dans les réponses.
-- **Raccourcis clavier globaux**, actifs même quand la visio est au premier plan.
-- **Interface en français**, réponses en police de lecture, orbe animée en WebGL qui réagit à la voix.
+**Copilote de rendez-vous**
+- Préparation, fiche vivante avec citations, suggestion du moment, suivi des objections, des questions et des engagements, rappel de fin d'appel, compte-rendu et e-mail de relance.
+- Interrupteur « Assistant oui / non » : sans assistant, C.A.P.R.I prend des notes et rédige le compte-rendu, sans rien afficher pendant l'appel.
+
+**Questions à l'IA**
+- À l'écrit, à la **dictée**, ou en **conversation vocale** (bouton « Parler ») : vous parlez, l'IA répond à voix haute, puis se remet à l'écoute.
+- Bouton **« Écouter »** sous chaque réponse (voix françaises de Windows, gratuites et hors ligne) et bouton **« Copier la phrase »** pour la phrase à dire mot pour mot.
+- Réponses mises en forme pour la lecture rapide : police Source Serif, phrase à dire dans un encadré, listes aérées.
+- **Captures d'écran** jointes à la question, en plein écran ou par zone, sur plusieurs écrans. Si le LLM ne lit pas les images, la question est renvoyée sans la capture.
+
+**Personnalisation**
+- **Prompts système** à activer ou désactiver en un clic depuis l'overlay, avec le choix de ceux qui y apparaissent.
+- **Choix du LLM** depuis l'overlay, parmi ceux que vous avez ajoutés. Modèles prêts à l'emploi : Groq (texte ou images), Mistral, OpenAI, OpenRouter, Ollama.
+- **Connaissances** : vos documents (offre, tarifs, objections) injectés dans les réponses.
+- **Effets visuels** réglables (complets, légers, aucun) pour les PC peu puissants.
+
+**Confort**
+- Overlay transparent, toujours au premier plan, en cinq tailles (S à Full), déplaçable au clavier.
+- Interface entièrement en français.
+- Orbe animée en WebGL (shader de filaments lumineux) qui s'emballe quand quelqu'un parle et pulse pendant les réponses.
+
+## Raccourcis clavier
+
+Globaux, ils fonctionnent même quand la visio est au premier plan. Valeurs par défaut sous Windows, modifiables dans le tableau de bord (« Curseur et raccourcis ») :
+
+| Action | Raccourci |
+|---|---|
+| Afficher / masquer l'overlay | `Ctrl` + `\` |
+| Ouvrir / fermer le tableau de bord | `Ctrl` + `Maj` + `D` |
+| Aller à la zone de saisie | `Ctrl` + `Maj` + `I` |
+| Lancer / arrêter l'écoute | `Ctrl` + `Maj` + `M` |
+| Dicter | `Ctrl` + `Maj` + `A` |
+| Capture d'écran | `Ctrl` + `Maj` + `S` |
+| Déplacer l'overlay | `Ctrl` + flèches |
 
 ## Vous branchez vos propres clés
 
@@ -72,7 +98,7 @@ flowchart LR
     K -.-> D
 ```
 
-Avec **une seule clé Groq** (offre gratuite disponible), on couvre à la fois la transcription (`whisper-large-v3-turbo`) et les réponses (`openai/gpt-oss-120b`). Avec Ollama, tout peut tourner en local, sans Internet.
+Avec **une seule clé Groq** (offre gratuite disponible), on couvre à la fois la transcription (`whisper-large-v3-turbo`) et les réponses (`openai/gpt-oss-120b`). Avec Ollama, les réponses peuvent tourner en local, sans Internet. La voix de l'IA utilise les voix installées dans Windows : aucune clé supplémentaire.
 
 ## Informer votre interlocuteur
 
@@ -111,6 +137,14 @@ npm run tauri build
 ```
 
 Chaque push sur `main` déclenche aussi un build Windows dans GitHub Actions, qui met à jour la page de téléchargement.
+
+## Limites connues
+
+- **Windows uniquement** : le code vient d'un projet multiplateforme, mais C.A.P.R.I n'a été testé que sous Windows.
+- L'installeur n'est **pas signé** : Windows affiche un avertissement au premier lancement.
+- Les modèles de LLM évoluent vite : les noms proposés par « Remplissage auto » peuvent être retirés par le fournisseur. Vérifiez la liste à jour chez lui (par exemple [console.groq.com/docs/models](https://console.groq.com/docs/models)).
+- La qualité des suggestions dépend du LLM choisi et de la qualité de la transcription.
+- La voix de l'IA est celle de Windows : correcte, mais moins naturelle qu'un service de voix en ligne. Pour la conversation vocale, un casque évite que le micro entende la réponse.
 
 ## Architecture
 
